@@ -14,8 +14,9 @@ Run the following command to deploy the guestbook stack:
     Access Grafana via the browser at http://localhost:8080
 
 # To access Prometheus:
-    run kubectl port-forward svc/grafana 9090:80
-    Access Grafana via the browser at http://localhost:9090    
+    kubectl port-forward svc/grafana 9090:80
+Access Grafana via the browser at 
+    http://localhost:9090    
 
 # To access Grafana:
     run kubectl port-forward svc/grafana 32000:80
