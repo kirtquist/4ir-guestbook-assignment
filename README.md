@@ -9,10 +9,12 @@ Running a minikube cluster that is the kubernetes current cluster, as determined
 
 Running without a load balancer locally.
 
-Install pulumi if it is not installed.
+Install pulumi if it is not installed.  
+Instructions to install pulumi.  
+    https://www.pulumi.com/docs/iac/get-started/kubernetes/begin/ 
 
-Clone this repo to a local folder. 
-Go into the newly created folder and deploy the guestbook stack:  
+Clone this repo to a local folder.  
+Go into the newly created folder and deploy the guestbook stack.
 ### Deploy the application using the following command.
     pulumi up
 
