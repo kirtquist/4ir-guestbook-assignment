@@ -12,7 +12,8 @@ Running without a load balancer locally.
 Install pulumi if it is not installed.
 
 Clone this repo to a local folder. 
-Go into the newly created folder and run the following command to deploy the guestbook stack:
+Go into the newly created folder and run the following command to deploy the guestbook stack:  
+    pulumi up
 ### Deploy the application using the following command.
     pulumi up
 
