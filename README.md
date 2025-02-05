@@ -8,7 +8,10 @@ Running a minikube cluster that is the kubernetes current cluster, as determined
 Running without a load balancer locally
 
 
-Run the following command to deploy the guestbook stack:
+Install pulumi if it is not installed
+
+Clone this repo to a local folder.  
+Go into the newly created folder and run the following command to deploy the guestbook stack:  
     pulumi up
 
 # To access the Guestbook:
