@@ -7,6 +7,7 @@ from pulumi_kubernetes.core.v1 import Service, Namespace
 from pulumi_kubernetes.helm.v3 import Chart, ChartOpts
 from pulumi_kubernetes.helm.v3 import FetchOpts
 from pulumi_kubernetes import Provider
+from pulumi_kubernetes.core.v1 import ConfigMap
 
 
 with open('./Pulumi.README.md') as f:
@@ -185,14 +186,18 @@ if useLoadBalancer:
     frontend_ip = ingress.apply(lambda ingress: ingress.get("ip", ingress.get("hostname", "")))
 else:
     frontend_ip = frontend_service.spec.apply(lambda spec: spec.get("cluster_ip", ""))
-pulumi.export("frontend_ip", frontend_ip)
 
+
+
+###################################################
+#  Additions added to pulumi Guestbook example
+###################################################
 
 # Create a namespace for monitoring tools
 monitoring_ns = Namespace("monitoring", metadata={"name": "monitoring"})
 
 
-from pulumi_kubernetes.core.v1 import ConfigMap
+
 
 extra_scrape_config = ConfigMap(
     "extra-scrape-config",
@@ -272,23 +277,13 @@ grafana_chart = Chart(
 grafana_service = grafana_chart.get_resource("v1/Service", "monitoring/grafana")
 grafana_node_port = grafana_service.spec.apply(lambda spec: spec.ports[0].node_port)
 
-
 grafana_url = grafana_service.spec.apply(lambda spec: (
     f"http://localhost:{spec.ports[0].node_port}" if spec and spec.type == "NodePort"
     else "Grafana service type not found or incorrect"
 ))
 
-pulumi.export("grafana_url", grafana_url)
-# kubectl port-forward -n monitoring svc/grafana 32000:80
-pulumi.export("grafana_node_port", grafana_node_port)
-pulumi.export("grafana_admin_user", "admin")
-pulumi.export("grafana_admin_password", "admin")  # Consider using Kubernetes Secrets in production
 
-# Cluster Recommendation
-recommended_cluster = "minikube"  # Recommended for NodePort support
-pulumi.export("recommended_cluster", recommended_cluster)
-
-
+# Added redis_exporter for additional metrics
 
 redis_exporter_deployment = Deployment(
     "redis-exporter",
@@ -330,3 +325,21 @@ redis_exporter_service = Service(
         }],
         "selector": {"app": "redis-exporter"},
     })
+
+
+pulumi.export("frontend_ip", frontend_ip)
+pulumi.export("command to expose frontend locally on port 8080","kubectl port-forward svc/frontend 8080:80")
+pulumi.export("frontend_url","http://localhost:8080")
+
+pulumi.export("grafana_url", grafana_url)
+# kubectl port-forward -n monitoring svc/grafana 32000:80
+pulumi.export("grafana_node_port", grafana_node_port)
+
+# hard coded the grafana user/password. TODO - pull these programattically...
+pulumi.export("grafana_admin_user", "admin")
+pulumi.export("grafana_admin_password", "admin")  # Consider using Kubernetes Secrets in production
+
+
+# Cluster Recommendation
+recommended_cluster = "minikube"  # Recommended for NodePort support, running locally for ease of use.
+pulumi.export("recommended_cluster", recommended_cluster)

@@ -1,6 +1,6 @@
-Instructions to deploy the application
+## Instructions to deploy the application
 
-Assumptions:
+# Assumptions:
 Running a minikube cluster that is the kubernetes current cluster, as determined by kubectl get current-context
 
 Running without a load balancer locally
@@ -9,15 +9,16 @@ Running without a load balancer locally
 Run the following command to deploy the guestbook stack:
     pulumi up
 
-    #To access the Guestbook:
+# To access the Guestbook:
     run kubectl port-forward svc/frontend 8080:80
     Access Grafana via the browser at http://localhost:8080
 
-    #To access Prometheus:
+# To access Prometheus:
     run kubectl port-forward svc/grafana 9090:80
     Access Grafana via the browser at http://localhost:9090    
 
-    #To access Grafana:
+# To access Grafana:
     run kubectl port-forward svc/grafana 32000:80
     Access Grafana via the browser at http://localhost:32000
     Use the username and password provided after running pulumi up or pulumi output commands.
+
