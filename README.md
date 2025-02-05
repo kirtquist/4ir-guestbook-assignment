@@ -3,16 +3,15 @@
 ## Instructions to deploy the application
 
 ## Assumptions:
-Running a minikube cluster that is the kubernetes current cluster, as determined by kubectl get current-context
+Running a minikube cluster that is the kubernetes current cluster, as determined by kubectl get current-context.
 
-Running without a load balancer locally
+Running without a load balancer locally.
 
-
-Install pulumi if it is not installed
+Install pulumi if it is not installed.
 
 Clone this repo to a local folder. 
 Go into the newly created folder and run the following command to deploy the guestbook stack:
-### Deploye the application
+### Deploy the application using the following command.
     pulumi up
 
 ### To access the Guestbook:
