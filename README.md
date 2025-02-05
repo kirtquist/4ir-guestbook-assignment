@@ -1,6 +1,8 @@
 # 4ir-guestbook-assignment
+Extend the existing Pulumi Kubernetes Guestbook example (https://github.com/pulumi/examples/blob/master/kubernetes-ts-guestbook/README.md)
+by integrating monitoring with Prometheus and Grafana to observe application performance.
 
-## Instructions to deploy the application
+## Instructions to deploy the application locally
 
 ## Assumptions:
 Running a minikube cluster that is the kubernetes current cluster, as determined by kubectl get current-context.

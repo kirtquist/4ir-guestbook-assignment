@@ -1,6 +1,6 @@
 # 4ir-guestbook-assignment
 
-## Instructions to deploy the application
+## Instructions to deploy the application locally
 
 ## Assumptions:
 Running a minikube cluster that is the kubernetes current cluster, as determined by kubectl get current-context.
