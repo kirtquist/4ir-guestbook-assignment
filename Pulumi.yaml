@@ -1,0 +1,11 @@
+name: k8s-guestbook-task
+description: Guestbook example with Prometheus and Grafana
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: kubernetes-python
