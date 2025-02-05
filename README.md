@@ -18,10 +18,11 @@ Access Grafana via the browser at http://localhost:8080
 
 # To access Prometheus:
     kubectl port-forward svc/grafana 9090:80
+
 Access Grafana via the browser at http://localhost:9090    
 
 # To access Grafana:
     kubectl port-forward svc/grafana 32000:80
-Access Grafana via the browser at http://localhost:32000
-Use the username and password provided after running pulumi up or pulumi output commands.
+Access Grafana via the browser at http://localhost:32000  
+Use the username and password provided after running "pulumi up" or "pulumi output" commands.
 
