@@ -34,5 +34,5 @@ Access Grafana via the browser at http://localhost:9090
 
 Access Grafana via the browser at http://localhost:32000  
 You may not need to use the port-forward if it isn't blocked by a local firewall, as it may be on MacOS.
-Use the username and password provided after running "pulumi up" or "pulumi output" commands.
+Use the username and password provided after running "pulumi up" or "pulumi stack output" commands.
 
