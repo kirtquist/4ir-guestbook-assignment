@@ -244,12 +244,61 @@ prometheus_chart = Chart(
             "prometheus": {
                 "prometheusSpec": {
                     "additionalScrapeConfigsSecret": "extra-scrape-config",
+                    "podMetadata": {
+                        "labels": {
+                            "app": "prometheus",
+                            "component": "server"
+                        }
+                    }
                 }
             }  
         }    
     ),
     opts=pulumi.ResourceOptions(provider=provider),
 )
+
+import json
+dashboard_json = {
+    "dashboard": {
+        "id": None,
+        "uid": "pulumi-dashboard",
+        "title": "Pulumi Managed Dashboard",
+        "tags": ["pulumi"],
+        "timezone": "browser",
+        "schemaVersion": 36,
+        "version": 0,
+        "panels": [
+            {
+                "type": "graph",
+                "title": "Sample Panel",
+                "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+                "targets": [],
+                "datasource": "Prometheus",
+            }
+        ],
+    },
+    "overwrite": True,
+}
+
+values = {
+    "service": {
+        "type": "NodePort",
+        "nodePort": 32000,  # Keep existing service settings
+    },
+    "adminUser": "admin",
+    "adminPassword": "admin",  # Keep the admin credentials
+    "dashboardsProvider": {
+        "enabled": True,
+        "foldersFromFilesStructure": True
+    },
+    "dashboards": {
+        "default": {
+            "pulumi-dashboard": {  # Use a unique key for the dashboard
+                "json": json.dumps(dashboard_json)  # Convert JSON to a string
+            }
+        }
+    }
+}
 
 # Deploy Grafana using Helm chart
 grafana_chart = Chart(
@@ -261,14 +310,15 @@ grafana_chart = Chart(
             repo="https://grafana.github.io/helm-charts"
         ),
         namespace=monitoring_ns.metadata["name"],
-        values={
-            "service": {
-                "type": "NodePort",
-                "nodePort": 32000,  # Expose Grafana on NodePort 32000
-            },
-            "adminUser": "admin",
-            "adminPassword": "admin",  # Change this in production
-        },
+        values=values,
+        # values={
+        #     "service": {
+        #         "type": "NodePort",
+        #         "nodePort": 32000,  # Expose Grafana on NodePort 32000
+        #     },
+        #     "adminUser": "admin",
+        #     "adminPassword": "admin",  # Change this in production
+        # },
     ),
     opts=pulumi.ResourceOptions(provider=provider),
 )
@@ -325,6 +375,10 @@ redis_exporter_service = Service(
         }],
         "selector": {"app": "redis-exporter"},
     })
+
+
+
+
 
 
 pulumi.export("frontend_ip", frontend_ip)

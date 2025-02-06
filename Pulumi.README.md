@@ -20,12 +20,12 @@ Go into the newly created folder and run the following command to deploy the gue
 Access Grafana via the browser at http://localhost:8080
 
 ### To access Prometheus:
-    kubectl port-forward svc/grafana 9090:80
+    kubectl port-forward svc/prometheus-server -n monitoring 9090:80
 
 Access Grafana via the browser at http://localhost:9090    
 
 ### To access Grafana:
-    kubectl port-forward svc/grafana 32000:80
+    kubectl port-forward svc/grafana -n monitoring 32000:80
 Access Grafana via the browser at http://localhost:32000  
 Use the username and password provided after running "pulumi up" or "pulumi output" commands.
 

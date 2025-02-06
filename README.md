@@ -24,12 +24,15 @@ Go into the newly created folder and deploy the guestbook stack.
 Access Grafana via the browser at http://localhost:8080
 
 ### To access Prometheus:
-    kubectl port-forward svc/grafana 9090:80
+    kubectl port-forward svc/prometheus-server -n monitoring 9090:80
 
 Access Grafana via the browser at http://localhost:9090    
 
 ### To access Grafana:
-    kubectl port-forward svc/grafana 32000:80
+    kubectl port-forward svc/grafana -n monitoring 32000:80  
+
+
 Access Grafana via the browser at http://localhost:32000  
+You may not need to use the port-forward if it isn't blocked by a local firewall, as it may be on MacOS.
 Use the username and password provided after running "pulumi up" or "pulumi output" commands.
 
